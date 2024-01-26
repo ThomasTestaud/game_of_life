@@ -9,14 +9,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const overpopulation = 0.495;
     const underpopulation = 0.333;
     const growthRate = 0.1;
-    const radius = 5;
-    const radiusTwo = radius + 2;
+    const radius = 7;
+    const radiusTwo = radius + 5;
     const thickness = 1;
 
     // Precomputed values
     const grayScaleValues = new Array(100).fill(0).map((_, i) => Math.floor(i * 255 / 99));
     const colors = grayScaleValues.map(value => `rgb(${value}, ${value}, ${value})`);
-    const squarewidth = 40;
+    const squarewidth = 47;
     const halfSquareWidth = squarewidth / 2;
 
     function generatePixelArray() {
@@ -113,6 +113,5 @@ document.addEventListener("DOMContentLoaded", function() {
     restartBtn.addEventListener('click', () => {
         pixelArray = generatePixelArray();
         play = true;
-        mainLoop();
     });
 });
