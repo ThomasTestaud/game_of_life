@@ -3,20 +3,20 @@ document.addEventListener("DOMContentLoaded", function() {
     const ctx = canvas.getContext("2d");
 
     // Game variables
-    const gridSize = 10;
+    let gridSize = 10;
     const screenWidth = Math.floor(window.innerWidth / gridSize);
     const screenHeight = Math.floor(window.innerHeight / gridSize);
     const overpopulation = 0.495;
-    const underpopulation = 0.333;
+    const underpopulation = 0.335;
     const growthRate = 0.1;
-    const radius = 7;
-    const radiusTwo = radius + 5;
+    let radius = 5;
+    const radiusTwo = radius + 3;
     const thickness = 1;
 
     // Precomputed values
     const grayScaleValues = new Array(100).fill(0).map((_, i) => Math.floor(i * 255 / 99));
     const colors = grayScaleValues.map(value => `rgb(${value}, ${value}, ${value})`);
-    const squarewidth = 47;
+    const squarewidth = 42;
     const halfSquareWidth = squarewidth / 2;
 
     function generatePixelArray() {
@@ -101,17 +101,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // CONTROLS
     const playBtn = document.getElementById('play');
-    const restartBtn = document.getElementById('restart');
-
     playBtn.addEventListener('click', () => {
         play = !play;
         if (play) {
             mainLoop();
         }
     });
-
+    
+    const restartBtn = document.getElementById('restart');
     restartBtn.addEventListener('click', () => {
         pixelArray = generatePixelArray();
         play = true;
+    });
+
+    const radiusInput = document.getElementById('radius');
+    radiusInput.value = radius*10;
+    radiusInput.addEventListener('input', () => {
+        play = false;
+        radius = radiusInput.value/10;
+        console.log(radius);
+    });
+
+    const zoomInput = document.getElementById('zoom');
+    zoomInput.value = gridSize;
+    zoomInput.addEventListener('input', () => {
+        play = false;
+        gridSize = zoomInput.value;
+        console.log(gridSize);
+        resizeCanvas();
     });
 });

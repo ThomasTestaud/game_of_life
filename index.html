@@ -10,6 +10,10 @@
             padding: 0;
             width: 100%;
             height: 100%;
+            font-family: Helvetica, sans-serif;
+        }
+        label {
+            color: white;
         }
         canvas {
             display: block; /* Removes the margin around the canvas */
@@ -27,7 +31,10 @@
     <div class="controls">
         <button id="play">Play/pause</button>
         <button id="restart">Restart</button>
-        
+        <label for="radius">radius</label>
+        <input type="range" name="radius" id="radius">
+        <label for="zoom">zoom</label>
+        <input type="range" name="zoom" id="zoom">
     </div>
     <script src="main.js"></script>
 </body>
