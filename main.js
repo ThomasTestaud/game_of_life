@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Game variables
     let gridSize = 10;
-    const screenWidth = Math.floor(window.innerWidth / gridSize);
-    const screenHeight = Math.floor(window.innerHeight / gridSize);
-    const overpopulation = 0.495;
-    const underpopulation = 0.335;
-    const growthRate = 0.1;
+    let screenWidth = Math.floor(window.innerWidth / gridSize);
+    let screenHeight = Math.floor(window.innerHeight / gridSize);
+    let overpopulation = 0.49;
+    let underpopulation = 0.337;
+    let growthRate = 0.05;
     let radius = 5;
     const radiusTwo = radius + 3;
     const thickness = 1;
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Precomputed values
     const grayScaleValues = new Array(100).fill(0).map((_, i) => Math.floor(i * 255 / 99));
     const colors = grayScaleValues.map(value => `rgb(${value}, ${value}, ${value})`);
-    const squarewidth = 42;
+    const squarewidth = 10*radius;
     const halfSquareWidth = squarewidth / 2;
 
     function generatePixelArray() {
@@ -117,8 +117,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const radiusInput = document.getElementById('radius');
     radiusInput.value = radius*10;
     radiusInput.addEventListener('input', () => {
-        play = false;
-        radius = radiusInput.value/10;
+        //play = false;
+        radius = Math.round(radiusInput.value/10);
         console.log(radius);
     });
 
@@ -126,8 +126,34 @@ document.addEventListener("DOMContentLoaded", function() {
     zoomInput.value = gridSize;
     zoomInput.addEventListener('input', () => {
         play = false;
-        gridSize = zoomInput.value;
+        if (zoomInput.value > 0) {
+            gridSize = zoomInput.value;
+        }
         console.log(gridSize);
-        resizeCanvas();
+        screenWidth = Math.floor(window.innerWidth / gridSize);
+        screenHeight = Math.floor(window.innerHeight / gridSize);
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        pixelArray = generatePixelArray();
+        drawGrid();
+    });
+
+    const overpopulationBtn = document.getElementById('overpopulation');
+    overpopulationBtn.value = overpopulation*100;
+    overpopulationBtn.addEventListener('input', () => {
+        overpopulation = overpopulationBtn.value/100;
+        console.log(overpopulation);
+    });
+    const underpopulationBtn = document.getElementById('underpopulation');
+    underpopulationBtn.value = underpopulation*100;
+    underpopulationBtn.addEventListener('input', () => {
+        underpopulation = underpopulationBtn.value/100;
+        console.log(underpopulation);
+    });
+    const growthrateBtn = document.getElementById('growthrate');
+    growthrateBtn.value = growthRate*100;
+    growthrateBtn.addEventListener('input', () => {
+        growthRate = growthrateBtn.value/100;
+        console.log(growthRate);
     });
 });
