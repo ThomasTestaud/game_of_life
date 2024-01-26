@@ -15,10 +15,20 @@
             display: block; /* Removes the margin around the canvas */
             background: #f0f0f0; /* Light grey background */
         }
+        .controls {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+        }
     </style>
 </head>
 <body>
     <canvas id="myCanvas"></canvas>
+    <div class="controls">
+        <button id="play">Play/pause</button>
+        <button id="restart">Restart</button>
+        
+    </div>
     <script src="main.js"></script>
 </body>
 </html>
